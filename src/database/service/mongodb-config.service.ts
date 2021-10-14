@@ -10,11 +10,11 @@ export class MongodbConfigService implements TypeOrmOptionsFactory{
       database:'sample',
       entities: [
        Blockchain,Arch
-      ]
+      ],
       // ,
       // //ssl: true,
-      // useUnifiedTopology: true,
-      // useNewUrlParser: true
+       useUnifiedTopology: true,
+       useNewUrlParser: true
     }
     return options;
   }

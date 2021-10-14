@@ -9,7 +9,7 @@ export class BlockchainController {
   ) {
 
   }
-  @Get()
+  @Get('all')
   async getAll():Promise<any>{
     return this.blockchainService.getAll()
   }
@@ -18,5 +18,7 @@ export class BlockchainController {
   async create(@Body() createBlockchainDto:CreateBlockchainDto):Promise<any>{
     return this.blockchainService.create(createBlockchainDto)
   }
+
+
 
 }

@@ -1,26 +1,23 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Blockchain } from "../model/blockchain.entity";
-import { Repository } from "typeorm";
+import { MongoRepository, Repository } from "typeorm";
 import { CreateBlockchainDto } from "../dto/create-blockchain.dto";
+import { BlockchainRepository } from "../repository/blockchain.repository";
 
 @Injectable()
 export class BlockchainService {
   constructor(
-    @InjectRepository(Blockchain) private blockchainRepository:Repository<Blockchain>
+    @InjectRepository(BlockchainRepository) private blockchainRepository:BlockchainRepository
   ) {
   }
 
   async create(createBlockchainDto:CreateBlockchainDto):Promise<Blockchain>{
-    const {name,symbol}=createBlockchainDto
-    return await this.blockchainRepository.save({
-      name,
-      symbol
-    })
+    return await this.blockchainRepository.creatBlockchain(createBlockchainDto)
   }
 
   async getAll():Promise<Blockchain[]>{
-    return await this.blockchainRepository.find()
+    return await this.blockchainRepository.find({relations:['obj_arch']})
   }
 
 }

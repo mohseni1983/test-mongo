@@ -1,22 +1,32 @@
-import { Column, Entity, Generated, ObjectID, ObjectIdColumn, OneToMany } from "typeorm";
+import {
+  AfterInsert,
+  Column,
+  Entity,
+  Generated,
+  Index, JoinColumn,
+  ObjectID,
+  ObjectIdColumn,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn
+} from "typeorm";
 import { Blockchain } from "./blockchain.entity";
 
 @Entity()
 export class Arch {
-  @ObjectIdColumn()
-  id:ObjectID
-
-
-  @Column()
-  @Generated('uuid')
-  obj_arch:string
-
+  @PrimaryGeneratedColumn('uuid')
+  id:string
 
   @Column()
   name:string
 
-  @OneToMany(()=>Blockchain,(p)=>p.arch)
-  blockchains:Blockchain[]
+  @Column({default:false})
+  deleted:boolean
+
+  @OneToOne(()=>Blockchain,{cascade:true})
+  @JoinColumn()
+  obj_blockchain:Blockchain
+
 
 
 }
